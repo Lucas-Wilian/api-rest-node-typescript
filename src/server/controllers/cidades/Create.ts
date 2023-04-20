@@ -1,6 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
 import * as yup from 'yup';
-import { StatusCodes } from 'http-status-codes';
 import { validation } from '../../shared/middleware';
 
 interface ICidade {
@@ -8,21 +7,24 @@ interface ICidade {
   estado: string;
 }
 
-const bodyValidation: yup.SchemaOf<ICidade> = yup.object().shape({
-  nome: yup.string().required().min(3),
-  estado: yup.string().required().min(3),
-});
-
 interface IFilter {
   filter?: string;
 }
 
-const queryValidation: yup.SchemaOf<IFilter> = yup.object().shape({
-  filter: yup.string().required().min(3),
-});
-
-export const createValidation = validation(queryValidation);
-export const createBodyValidator = validation(bodyValidation);
+export const createValidation = validation((getSchema) => ({
+  body: getSchema<ICidade>(
+    yup.object().shape({
+      nome: yup.string().required().min(3),
+      estado: yup.string().required().min(3),
+    })
+  ),
+  query: getSchema<IFilter>(
+    yup.object().shape({
+      filter: yup.string().optional().min(3),
+    })
+  ),
+}));
+// export const createBodyValidator = validation('body', bodyValidation);
 
 export const create: RequestHandler = async (
   req: Request<{}, {}, ICidade>,
