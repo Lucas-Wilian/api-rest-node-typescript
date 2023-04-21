@@ -7,6 +7,13 @@ router.get('/', (_, res) => {
   return res.send('Olá dev');
 });
 
+router.get(
+  '/cidades',
+
+  CidadesController.getAllValidation,
+  CidadesController.getAll
+);
+
 router.post(
   '/cidades',
 
@@ -14,4 +21,17 @@ router.post(
   CidadesController.create
 );
 
+router.get(
+  '/cidades/:id',
+
+  CidadesController.getByIdValidation,
+  CidadesController.getById
+);
+
+router.put(
+  '/cidades/:id',
+
+  CidadesController.updateByIdValidation,
+  CidadesController.updateById
+);
 export { router };
