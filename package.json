@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node-dev ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "production": "node ./build/index.js",
+    "postinstall": "tsc"
   },
   "author": "Lucas Wilian",
   "license": "ISC",
