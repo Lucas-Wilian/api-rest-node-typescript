@@ -1,9 +1,9 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { Knex } from '../../knex';
 
 export const deleteById = async (id: number): Promise<void | Error> => {
   try {
-    const result = await Knex(EtableNames.pessoa).where('id', '=', id).del();
+    const result = await Knex(ETableNames.pessoa).where('id', '=', id).del();
     if (result > 0) return;
     return new Error('Erro ao apagar o registro');
   } catch (error) {

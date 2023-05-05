@@ -1,4 +1,4 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { IPessoa } from '../../models';
 import { Knex } from '../../knex';
 
@@ -6,7 +6,7 @@ export const updateId = async (
   id: number,
   pessoa: Omit<IPessoa, 'id'>
 ): Promise<void | Error> => {
-  const [{ count }] = await Knex(EtableNames.pessoa)
+  const [{ count }] = await Knex(ETableNames.pessoa)
     .where('id', '=', pessoa.cidadeId)
     .count<[{ count: number }]>('* as count');
 
@@ -15,7 +15,7 @@ export const updateId = async (
   }
 
   try {
-    const result = await Knex(EtableNames.pessoa)
+    const result = await Knex(ETableNames.pessoa)
       .update(pessoa)
       .where('id', '=', id);
     if (result > 0) return;

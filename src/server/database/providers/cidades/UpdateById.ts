@@ -1,4 +1,4 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { ICidade } from '../../models';
 import { Knex } from '../../knex';
 
@@ -7,7 +7,7 @@ export const updateId = async (
   cidade: Omit<ICidade, 'id'>
 ): Promise<void | Error> => {
   try {
-    const result = await Knex(EtableNames.cidade)
+    const result = await Knex(ETableNames.cidade)
       .update(cidade)
       .where('id', '=', id);
     if (result > 0) return;

@@ -1,8 +1,8 @@
 import { Knex } from 'knex';
-import { EtableNames } from '../EtableName';
+import { ETableNames } from '../EtableName';
 
 export const seed = async (knex: Knex) => {
-  const [{ count }] = await knex(EtableNames.cidade).count<[{ count: number }]>(
+  const [{ count }] = await knex(ETableNames.cidade).count<[{ count: number }]>(
     '* as count'
   );
 
@@ -10,7 +10,7 @@ export const seed = async (knex: Knex) => {
   const cidadesToInsert = cidadesDoMaranhao.map((nomeDacidade) => ({
     nome: nomeDacidade,
   }));
-  await knex(EtableNames.cidade).insert(cidadesToInsert);
+  await knex(ETableNames.cidade).insert(cidadesToInsert);
 };
 
 const cidadesDoMaranhao = [

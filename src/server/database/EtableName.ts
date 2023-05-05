@@ -1,4 +1,4 @@
-export enum EtableNames {
+export enum ETableNames {
   cidade = 'cidade',
   pessoa = 'pessoa',
   usuario = 'usuario',

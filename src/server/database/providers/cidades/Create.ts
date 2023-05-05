@@ -1,4 +1,4 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { Knex } from '../../knex';
 import { ICidade } from '../../models';
 
@@ -6,7 +6,7 @@ export const create = async (
   cidade: Omit<ICidade, 'id'>
 ): Promise<number | Error> => {
   try {
-    const [result] = await Knex(EtableNames.cidade)
+    const [result] = await Knex(ETableNames.cidade)
       .insert(cidade)
       .returning('id');
     if (typeof result === 'object') {

@@ -1,4 +1,4 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { IPessoa } from '../../models';
 import { Knex } from '../../knex';
 
@@ -8,7 +8,7 @@ export const getAll = async (
   filter: string
 ): Promise<IPessoa[] | Error> => {
   try {
-    const result = await Knex(EtableNames.pessoa)
+    const result = await Knex(ETableNames.pessoa)
       .select('*')
       .where('nomeCompleto', 'like', `%${filter}%`)
       .offset((page - 1) * limit)

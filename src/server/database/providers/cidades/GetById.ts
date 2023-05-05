@@ -1,10 +1,10 @@
-import { EtableNames } from '../../EtableName';
+import { ETableNames } from '../../EtableName';
 import { ICidade } from '../../models';
 import { Knex } from '../../knex';
 
 export const getById = async (id: number): Promise<ICidade | Error> => {
   try {
-    const result = await Knex(EtableNames.cidade)
+    const result = await Knex(ETableNames.cidade)
       .select('*')
       .where('id', '=', id)
       .first();
