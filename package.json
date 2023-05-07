@@ -16,6 +16,7 @@
   "author": "Lucas Wilian",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "http-status-codes": "^2.2.0",
@@ -24,6 +25,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.17",
     "@types/http-status-codes": "^1.2.0",
     "@types/jest": "^29.5.1",
