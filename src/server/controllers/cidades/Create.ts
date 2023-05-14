@@ -4,48 +4,28 @@ import * as yup from 'yup';
 
 import { CidadesProvider } from '../../database/providers/cidades';
 import { validation } from '../../shared/middleware';
+import { ICidade } from '../../database/models';
 
-interface IQueryProps {
-  id?: number;
-  page?: number;
-  limit?: number;
-  filter?: string;
-}
-export const getAllValidation = validation((getSchema) => ({
-  query: getSchema<IQueryProps>(
+interface IBodyProps extends Omit<ICidade, 'id'> {}
+
+export const createValidation = validation((getSchema) => ({
+  body: getSchema<IBodyProps>(
     yup.object().shape({
-      page: yup.number().moreThan(0),
-      limit: yup.number().moreThan(0),
-      id: yup.number().integer().default(0),
-      filter: yup.string(),
+      nome: yup.string().required().min(3).max(150),
     })
   ),
 }));
 
-export const getAll = async (
-  req: Request<{}, {}, {}, IQueryProps>,
-  res: Response
-) => {
-  const result = await CidadesProvider.getAll(
-    req.query.page || 1,
-    req.query.limit || 7,
-    req.query.filter || '',
-    Number(req.query.id || 0)
-  );
-  const count = await CidadesProvider.count(req.query.filter);
+export const create = async (req: Request<{}, {}, ICidade>, res: Response) => {
+  const result = await CidadesProvider.create(req.body);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: { default: result.message },
-    });
-  } else if (count instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: { default: count.message },
+      errors: {
+        default: result.message,
+      },
     });
   }
 
-  res.setHeader('access-control-expose-headers', 'x-total-count');
-  res.setHeader('x-total-count', count);
-
-  return res.status(StatusCodes.OK).json(result);
+  return res.status(StatusCodes.CREATED).json(result);
 };

@@ -1,15 +1,16 @@
 import { Router } from 'express';
+
 import {
   CidadesController,
   PessoasController,
   UsuariosController,
 } from './../controllers';
-import { ensureAuthenticated } from '../shared/middleware/EnsureAuthenticated';
+import { ensureAuthenticated } from '../shared/middleware';
 
 const router = Router();
 
 router.get('/', (_, res) => {
-  return res.send('Olá dev');
+  return res.send('Olá, DEV!');
 });
 
 router.get(
@@ -18,28 +19,24 @@ router.get(
   CidadesController.getAllValidation,
   CidadesController.getAll
 );
-
 router.post(
   '/cidades',
   ensureAuthenticated,
   CidadesController.createValidation,
   CidadesController.create
 );
-
 router.get(
   '/cidades/:id',
   ensureAuthenticated,
   CidadesController.getByIdValidation,
   CidadesController.getById
 );
-
 router.put(
   '/cidades/:id',
   ensureAuthenticated,
   CidadesController.updateByIdValidation,
   CidadesController.updateById
 );
-
 router.delete(
   '/cidades/:id',
   ensureAuthenticated,
@@ -88,4 +85,5 @@ router.post(
   UsuariosController.signUpValidation,
   UsuariosController.signUp
 );
+
 export { router };
